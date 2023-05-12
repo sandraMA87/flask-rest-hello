@@ -51,6 +51,8 @@ def get_planets():
     result = [element.serialize() for element in allPlanets]
     return jsonify(result), 200
 
+
+
 @app.route('/planet', methods=['POST'])
 def post_planet():
 
@@ -64,7 +66,6 @@ def post_planet():
     db.session.add(planet)
     db.session.commit()
 
-    #response_body = {"msg": "Planet inserted successfully"}
     return jsonify(planet.serialize()), 200
 
 @app.route('/character', methods=['GET'])
@@ -80,15 +81,14 @@ def post_character():
     # obtener los datos de la petición que están en formato JSON a un tipo de datos entendibles por pyton (a un diccionario). En principio, en esta petición, deberían enviarnos 3 campos: el nombre, la descripción del planeta y la población
     data = request.get_json()
 
-    # creamos un nuevo objeto de tipo Planet
-    Character = Character(name=data['name'], gender=data['gender'])
+    # creamos un nuevo objeto de tipo Character
+    character = Character(name=data['name'], gender=data['gender'])
 
-    # añadimos el planeta a la base de datos
-    db.session.add(Character)
+    # añadimos el character a la base de datos
+    db.session.add(character)
     db.session.commit()
 
-    #response_body = {"msg": "Planet inserted successfully"}
-    return jsonify(Character.serialize()), 200
+    return jsonify(character.serialize()), 200
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':
