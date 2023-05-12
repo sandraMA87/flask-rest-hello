@@ -45,6 +45,8 @@ def get_users():
 
     return jsonify(user_list), 200
 
+# GET DE PLANETS
+
 @app.route('/planet', methods=['GET'])
 def get_planets():
     allPlanets = Planet.query.all()
@@ -52,6 +54,18 @@ def get_planets():
     return jsonify(result), 200
 
 
+# GET DE PLANET_ID
+
+@app.route('/character/<int:planet_id>', methods=['GET'])
+def get_one_planet(planet_id):
+    un_planeta = Character.query.get(planet_id)
+    if un_planeta == None :
+        return 'No se encuentra el planeta', 404
+    return jsonify(un_planeta.serialize()), 200
+
+
+
+# POST DE PLANETS
 
 @app.route('/planet', methods=['POST'])
 def post_planet():
@@ -68,12 +82,24 @@ def post_planet():
 
     return jsonify(planet.serialize()), 200
 
+# GET DE CHARACTERS
+
 @app.route('/character', methods=['GET'])
 def get_character():
     allCharacters = Character.query.all()
     result = [element.serialize() for element in allCharacters]
     return jsonify(result), 200
 
+# GET DE CHARACTER_ID
+    
+@app.route('/character/<int:character_id>', methods=['GET'])
+def get_one_character(character_id):
+    un_character = Character.query.get(character_id)
+    if un_character == None :
+        return 'No se encuentra el character', 404
+    return jsonify(un_character.serialize()), 200
+
+# POST DE CHARACTERS
 
 @app.route('/character', methods=['POST'])
 def post_character():
